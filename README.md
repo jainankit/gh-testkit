@@ -16,44 +16,39 @@ Copy the `config.sample.json` file to `config.json` and edit the fields:
 - `github.secondaryToken` -- a personal access token for the secondary account
   (used to approve PRs)
 
-# End to end tests
-
-## Overview
-
-The end to end tests are written in a way to use Github API that are completely
-independent of our main source code, to perform actions on a Github repository
-and then measure results. Currently it is built to only work for staging
-environment, but this can simply work with any environment that has a connected
-MergeQueue Github app and runs the background fetch jobs.
-
-Note: Running these tests will change your repo config on staging.
-
-## How to run
-
-The code for tests lives in `mergeit` directory under `testkit/tests`. There are
-some prerequisites to run the tests:
-
-- Setup your own Github repository to work in staging.mergequeue.com
-- Setup the `config.json` file as described above.
-- Have a local env variable set for `SQL_STAGING` pointing to the staging DB.
-  Please ask @jainankit for this url.
-- If you are having trouble connecting to the staging DB, make sure you do not
-  have the `SQLALCHEMY_DATABASE_URI` set in your `local_overrides.py`.
-- In the `testkit/` directory, create an empty pem file:
+# Usage
+Each script has it's own purpose, and are named accordingly. For instance to create
+a PR, run the following command from `testkit` directory:
 
 ```jsx
-touch mqdev-1.pem
+> python ./new_pr.py
 ```
-
-- Make sure you have a label named `mq-ready` in your GH repository.
-- Have virtualenv enabled for the main application:
-
+This will create a new PR with a single commit in the directory named `mq-qa`. You
+can also check the usage for each script using the `--help` param:
 ```jsx
-source venv/bin/activate
+> python ./new_pr.py --help
+usage: new_pr.py [-h] [-a] [-l LABEL] [-c COUNT] [-b BASE_BRANCH] [--n-commits N_COMMITS] [--title TITLE]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -a, --approve         Approve the PR using the secondary account credentials.
+  -l LABEL, --label LABEL
+                        Add a label to the PR. Can be specified multiple times.
+  -c COUNT, --count COUNT
+                        The number of PRs to create. Defaults to 1.
+  -b BASE_BRANCH, --base-branch BASE_BRANCH
+                        The base branch for the PR to target. Defaults to the base branch of the repository.
+  --n-commits N_COMMITS
+                        The number of commits to add to each PR branch.
+  --title TITLE         The title of the pull request.
 ```
 
-Then run the tests:
-
-```jsx
-./run_tests.py
-```
+## All commands:
+- `approve_all_prs.py` - approve all open PRs
+- `close_all_prs.py` - close all open PRs
+- `create_merge_conflict.py` - create two PRs that conflict with each other
+- `create_stacked_prs.py` - create two or more PRs stacked on top of each other
+- `delete_branches.py` - delete all branches with `mq-qa-` prefix
+- `generate_fake_tests.py` - generate fake tests
+- `label_pr.py` - add a label to the specified PR
+- `new_pr.py` - create a new PR
