@@ -1,0 +1,7 @@
+{
+  "github": {
+    "repo": "<owner>/<repo name>",
+    "primaryToken": "ghp_xxx",
+    "secondaryToken": "ghp_yyy"
+  }
+}
