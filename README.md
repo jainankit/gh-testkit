@@ -1,8 +1,11 @@
-# Tools for testing MergeQueue against GitHub
+# Tools for automatically create pull requests
+These scripts are built to test MergeQueue: [aviator.co](https://aviator.co), but
+you can also use them for any purpose. The scripts are provided as is with no
+expectations of improvements or bug fixes.
 
 ## Setup
 
-## Step 1
+### Step 1
 You'll need a GitHub repo and two GitHub accounts with write access to that
 repo. Create a
 [GitHub personal access token](https://github.com/settings/tokens) for each
@@ -16,14 +19,14 @@ Copy the `config.sample.json` file to `config.json` and edit the fields:
 - `github.secondaryToken` -- a personal access token for the secondary account
   (used to approve PRs)
 
-## Step 2
+### Step 2
 The scripts are built in python, install the requirements:
 ```jsx
 > pip install -r requirements.txt
 ```
 
 
-# Usage
+## Usage
 Each script has it's own purpose, and are named accordingly. For instance to create
 a PR, run the following command from `testkit` directory:
 
