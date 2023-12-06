@@ -2,11 +2,11 @@
 
 ## Setup
 
+## Step 1
 You'll need a GitHub repo and two GitHub accounts with write access to that
 repo. Create a
 [GitHub personal access token](https://github.com/settings/tokens) for each
 account.
-
 Copy the `config.sample.json` file to `config.json` and edit the fields:
 
 - `github.repo` -- the name of the GitHub repository to test with (in the form
@@ -16,11 +16,19 @@ Copy the `config.sample.json` file to `config.json` and edit the fields:
 - `github.secondaryToken` -- a personal access token for the secondary account
   (used to approve PRs)
 
+## Step 2
+The scripts are built in python, install the requirements:
+```jsx
+> pip install -r requirements.txt
+```
+
+
 # Usage
 Each script has it's own purpose, and are named accordingly. For instance to create
 a PR, run the following command from `testkit` directory:
 
 ```jsx
+> cd testkit/
 > python ./new_pr.py
 ```
 This will create a new PR with a single commit in the directory named `mq-qa`. You
